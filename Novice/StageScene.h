@@ -1,8 +1,8 @@
 #pragma once
-// #include "Enemy.h"
 #include "IScene.h"
-#include "Player.h"
 #include "Vector2.h"
+#include "Player.h"
+#include "Enemy.h"
 
 class StageScene : public IScene {
 public:
@@ -13,5 +13,5 @@ public:
 
 public:
 	Player* player_;
-	// Enemy* enemy_;
+	Enemy* enemy_;
 };
