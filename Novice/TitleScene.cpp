@@ -1,9 +1,7 @@
 #include "TitleScene.h"
 #include <Novice.h>
 
-void TitleScene::Init() { 
-	titleSprite_ = Novice::LoadTexture("./Resources/TitleSceneSprite.png"); 
-}
+void TitleScene::Init() { titleTexture_ = Novice::LoadTexture("./Resources/Scene/title.png"); }
 
 void TitleScene::Update(char* keys, char* preKeys) {
 	if (!preKeys[DIK_RETURN] && keys[DIK_RETURN]) {
@@ -11,4 +9,4 @@ void TitleScene::Update(char* keys, char* preKeys) {
 	}
 }
 
-void TitleScene::Draw() { Novice::DrawSprite(0, 0, titleSprite_, 1.0f, 1.0f, 0.0f, WHITE); }
+void TitleScene::Draw() { Novice::DrawSprite((int)titleScreen_.x, (int)titleScreen_.y, titleTexture_, 1, 1, 0.0f, 0xffffffff); }

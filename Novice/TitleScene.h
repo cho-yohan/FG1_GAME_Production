@@ -1,5 +1,6 @@
 #pragma once
 #include "IScene.h"
+#include "Vector2.h"
 
 class TitleScene : public IScene {
 public:
@@ -8,5 +9,6 @@ public:
 	void Draw() override;
 
 private:
-	int titleSprite_;
+	Vector2 titleScreen_;
+	int titleTexture_;
 };

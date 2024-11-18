@@ -1,5 +1,4 @@
 #include "StageScene.h"
-#include "Player.h"
 #include <Novice.h>
 #include <math.h>
 
@@ -9,28 +8,41 @@ StageScene::~StageScene() {
 }
 
 void StageScene::Init() {
-	player_ = new Player({1920 / 2, 1080 / 2}, 24, 3);
-	enemy_ = new Enemy({1920 / 2, 1080 / 2}, 20, 3, true);
+	player_ = new Player({1920 / 2, 800}, 6);
+	enemy_ = new Enemy({400, 50}, 3, 16, true);
+
+	backGroundTexture_[0] = Novice::LoadTexture("./Resources/Scene/background0.png");
+	backGroundTexture_[1] = Novice::LoadTexture("./Resources/Scene/background1.png");
+	backGroundWallTexture_[0] = Novice::LoadTexture("./Resources/Scene/wall.png");
+	backGroundWallTexture_[1] = Novice::LoadTexture("./Resources/Scene/wall.png");
 }
 
 void StageScene::Update(char* keys, char* preKeys) {
 	player_->Update(keys, preKeys);
-	// enemy_->Update();
+	enemy_->Update();
 
-	/*float r1 = (float)enemy_->radius_;
-	float r2 = (float)player_->bullet_->r_;
+	backGround_[0].y += backGroundSpeed_;
+	backGround_[1].y += backGroundSpeed_;
 
-	float a = enemy_->pos_.x - player_->bullet_->pos_.x;
-	float b = enemy_->pos_.y - player_->bullet_->pos_.y;
-	float distance = sqrtf(a * a + b * b);
-
-	if (distance <= r1 + r2) {
-	    sceneNo = CLEAR;
-	}*/
+	if (backGround_[0].y >= 720) {
+		backGround_[0].y = -720;
+	}
+	if (backGround_[1].y >= 720) {
+		backGround_[1].y = -720;
+	}
 }
 
 void StageScene::Draw() {
-	Novice::DrawBox(0, 0, 1920, 1080, 0.0f, 0x00000064, kFillModeSolid);
+	for (int i = 0; i < 2; i++) {
+		Novice::DrawSprite((int)backGround_[i].x, (int)backGround_[i].y, backGroundTexture_[i], 1, 1, 0.0f, 0xffffffff);
+	}
 	player_->Draw();
-	enemy_->Draw();
+
+	if (enemy_->isAlive_ == true) {
+		//enemy_->Draw();
+	}
+
+	for (int i = 0; i < 2; i++) {
+		Novice::DrawSprite((int)backGroundWall_[i].x, (int)backGroundWall_[i].y, backGroundWallTexture_[i], 1, 1, 0.0f, 0xffffffff);
+	}
 }

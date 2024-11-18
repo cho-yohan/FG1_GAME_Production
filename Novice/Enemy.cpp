@@ -1,17 +1,20 @@
-#include "Novice.h"
 #include "Enemy.h"
+#include <Novice.h>
 
-Enemy::Enemy(Vector2 pos, int radius, int speed, int isAlive) {
+Enemy::Enemy(Vector2 pos, int s, int r, int isAlive) {
 	pos_ = pos;
-	radius_ = radius;
-	speed_ = speed;
+	radius_ = r;
+	speed_ = s;
 	isAlive_ = isAlive;
 }
 
-Enemy::~Enemy() {}
-
 void Enemy::Update() {
-	
+	pos_.x += speed_;
+
+	if (pos_.x - radius_ <= 50 || pos_.x + radius_ >= 980) {
+		speed_ *= -1;
+	}
 }
 
-void Enemy::Draw() { Novice::DrawEllipse((int)pos_.x, (int)pos_.y, radius_, radius_, 0.0f, RED, kFillModeSolid); }
+void Enemy::Draw() {
+}
