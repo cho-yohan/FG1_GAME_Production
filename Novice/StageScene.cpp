@@ -24,11 +24,11 @@ void StageScene::Update(char* keys, char* preKeys) {
 	backGround_[0].y += backGroundSpeed_;
 	backGround_[1].y += backGroundSpeed_;
 
-	if (backGround_[0].y >= 720) {
-		backGround_[0].y = -720;
+	if (backGround_[0].y >= 1080) {
+		backGround_[0].y = -1080;
 	}
-	if (backGround_[1].y >= 720) {
-		backGround_[1].y = -720;
+	if (backGround_[1].y >= 1080) {
+		backGround_[1].y = -1080;
 	}
 }
 
