@@ -1,9 +1,10 @@
 #pragma once
 
-#include "ClearScene.h"
 #include "IScene.h"
-#include "StageScene.h"
 #include "TitleScene.h"
+#include "StageScene.h"
+#include "GamePlayScene.h"
+#include "ClearScene.h"
 #include <Novice.h>
 #include <memory>
 
@@ -17,7 +18,7 @@ public:
 
 private:
 	// keeps track of the scenes
-	std::unique_ptr<IScene> sceneArr_[3];
+	std::unique_ptr<IScene> sceneArr_[4];
 
 	int currentSceneNo_;
 	int prevSceneNo_;
