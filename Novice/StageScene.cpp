@@ -5,11 +5,13 @@
 StageScene::~StageScene() {
 	delete player_;
 	delete enemy_;
+	delete boss_;
 }
 
 void StageScene::Init() {
-	player_ = new Player({1920 / 2, 800}, 6);
+	player_ = new Player({1920 / 2, 900}, 4.0f);
 	enemy_ = new Enemy({400, 50}, 3, 16, true);
+	boss_ = new Boss({610, 50}, 1.0f, 350);
 
 	backGroundTexture_[0] = Novice::LoadTexture("./Resources/Scene/background0.png");
 	backGroundTexture_[1] = Novice::LoadTexture("./Resources/Scene/background1.png");
@@ -20,6 +22,7 @@ void StageScene::Init() {
 void StageScene::Update(char* keys, char* preKeys) {
 	player_->Update(keys, preKeys);
 	enemy_->Update();
+	boss_->Update();
 
 	backGround_[0].y += backGroundSpeed_;
 	backGround_[1].y += backGroundSpeed_;
@@ -41,6 +44,8 @@ void StageScene::Draw() {
 	if (enemy_->isAlive_ == true) {
 		//enemy_->Draw();
 	}
+
+	boss_->Draw();
 
 	for (int i = 0; i < 2; i++) {
 		Novice::DrawSprite((int)backGroundWall_[i].x, (int)backGroundWall_[i].y, backGroundWallTexture_[i], 1, 1, 0.0f, 0xffffffff);

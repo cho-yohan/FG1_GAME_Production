@@ -1,7 +1,8 @@
 #pragma once
-#include "Enemy.h"
 #include "IScene.h"
 #include "Player.h"
+#include "Enemy.h"
+#include "Boss.h"
 #include "Vector2.h"
 
 class StageScene : public IScene {
@@ -14,6 +15,7 @@ public:
 public:
 	Player* player_;
 	Enemy* enemy_;
+	Boss* boss_;
 
 	Vector2 backGround_[2]{0, 0, 0, -1080};
 	Vector2 backGroundWall_[2]{0, 0, 1310, 0};

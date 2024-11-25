@@ -11,6 +11,7 @@ public:
 
 public:
 	Vector2 pos_;
+
 	int speed_;
 	int radius_;
 	bool isAlive_;
