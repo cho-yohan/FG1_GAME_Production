@@ -2,13 +2,15 @@
 #include <Novice.h>
 #include <cstdlib>
 
-Boss::Boss(Vector2 pos, float speed, float radius) : moveDirection_(1) {
+Boss::Boss(Vector2 pos, float speed) : moveDirection_(1) {
 	pos_ = pos;
 	speed_ = speed;
-	radius_ = radius;
 
 	isMoving_ = true;  // 最初は動く状態
 	moveTimer_ = 0.0f; // タイマーを初期化
+
+	// ボスのスプライトを読み込む
+	bossTexture = Novice::LoadTexture("./Resources/Boss/boss.png"); // ボスのスプライト画像パスを設定
 }
 
 Boss::~Boss() {}
@@ -51,30 +53,33 @@ void Boss::Update() {
 			pos_.y -= speed_;
 		}
 
+		// スプライトサイズを考慮して、ボスの中心を画面内に収めるための制限
+		float spriteWidth = 392;  // ボススプライトの幅
+		float spriteHeight = 299; // ボススプライトの高さ
+
 		// x座標の範囲制限（630から1290まで）
-		// 画面内に収めるためにボスの中心を考慮して調整
-		if (pos_.x + radius_ > 1290) {                 // 右端
-			pos_.x = 1290 - radius_;                   // 画面端で止める
+		if (pos_.x + spriteWidth / 2 > 1290) {         // 右端
+			pos_.x = 1290 - spriteWidth / 2;           // ボスの中心が画面外に出ないように調整
 			moveDirection_ = rand() % 2 == 0 ? -1 : 1; // ランダムで左右に動かす
 		}
-		if (pos_.x < 630) {                            // 左端
-			pos_.x = 630;                              // 画面端で止める
+		if (pos_.x - spriteWidth / 2 < 630) {          // 左端
+			pos_.x = 630 + spriteWidth / 2;            // ボスの中心が画面外に出ないように調整
 			moveDirection_ = rand() % 2 == 0 ? -1 : 1; // ランダムで左右に動かす
 		}
 
 		// y座標の範囲制限（50から500まで）
-		// ボスの中心を基準に制限
-		if (pos_.y + radius_ > 500) {                  // 下端
-			pos_.y = 500 - radius_;                    // 画面端で止める
+		if (pos_.y + spriteHeight / 2 > 500) {         // 下端
+			pos_.y = 500 - spriteHeight / 2;           // ボスの中心が画面外に出ないように調整
 			moveDirection_ = rand() % 2 == 0 ? -2 : 2; // ランダムで上下に動かす
 		}
-		if (pos_.y < 50) {                             // 上端
-			pos_.y = 50;                               // 画面端で止める
+		if (pos_.y - spriteHeight / 2 < 50) {          // 上端
+			pos_.y = 50 + spriteHeight / 2;            // ボスの中心が画面外に出ないように調整
 			moveDirection_ = rand() % 2 == 0 ? -2 : 2; // ランダムで上下に動かす
 		}
 	}
 }
 
 void Boss::Draw() { 
-	Novice::DrawBox((int)pos_.x, (int)pos_.y, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeSolid); 
+	// ボスのスプライトを描画（ボスの位置に合わせてスプライトを描画）
+	Novice::DrawSprite((int)pos_.x - 392 / 2, (int)pos_.y - 299 / 2, bossTexture, 1, 1, 0.0f, 0xffffffff);
 }

@@ -11,6 +11,8 @@ public:
 	void Draw() override;
 
 private:
-	Vector2 stageScreen;
-	int stageTexture;
+	Vector2 StageBackground{610, 0};
+	Vector2 backGroundWall_[2]{0, 0, 1310, 0};
+	int StageBackgroundTexture;
+	int backGroundWallTexture_[2];
 };
