@@ -77,8 +77,8 @@ void Boss::Update() {
 				}
 
 				// スプライトサイズを考慮して、ボスの中心を画面内に収めるための制限
-				float spriteWidth = 392;  // ボススプライトの幅
-				float spriteHeight = 299; // ボススプライトの高さ
+				float spriteWidth = 495;  // ボススプライトの幅
+				float spriteHeight = 325; // ボススプライトの高さ
 
 				// x座標の範囲制限（630から1290まで）
 				if (pos_.x + spriteWidth > 1290) {             // 右端
