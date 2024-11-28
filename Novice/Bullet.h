@@ -4,7 +4,7 @@
 
 class Bullet {
 public:
-	Bullet(Vector2 pos, int speed, int isShot);
+	Bullet(Vector2 pos, int speed, int isShot, int direction);
 	void Update();
 	void Draw();
 
@@ -17,4 +17,6 @@ public:
 	int isShot_ = false;
 	int bulletTexture_;
 	bool hitBox_ = true;
+
+	int direction_; // 追加: 1で右、-1で左、0で無効
 };

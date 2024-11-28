@@ -14,7 +14,7 @@ public:
 	Vector2 pos_;
 
 	float speed_;
-	int bulletTime_ = 7;
+	int bulletTime_ = 10;
 	int playerTexture_;
 	bool hitBox_ = true;
 };

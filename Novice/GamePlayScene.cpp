@@ -9,9 +9,9 @@ GamePlayScene::~GamePlayScene() {
 }
 
 void GamePlayScene::Init() {
-	player_ = new Player({1920 / 2, 900}, 4.0f);
+	player_ = new Player({1920 / 2 - 45, 900}, 4.0f);
 	enemy_ = new Enemy({400, 50}, 3, 16, true);
-	boss_ = new Boss({610, 50}, 1.0f);
+	boss_ = new Boss({770, -300}, 1.0f);
 
 	backGroundTexture_[0] = Novice::LoadTexture("./Resources/Scene/background0.png");
 	backGroundTexture_[1] = Novice::LoadTexture("./Resources/Scene/background1.png");

@@ -7,7 +7,7 @@ Player::Player(Vector2 pos, float speed) {
 	speed_ = speed;
 
 	for (int i = 0; i < 32; i++) {
-		bullet_[i] = new Bullet({0, 0}, 17, false);
+		bullet_[i] = new Bullet({0, 0}, 15, false, 0);
 	}
 
 	playerTexture_ = Novice::LoadTexture("./Resources/Player/player.png");
@@ -68,13 +68,23 @@ void Player::Update(char* keys, char* preKeys) {
 		if (bulletTime_ > 0) {
 			bulletTime_--;
 		} else {
-			bulletTime_ = 7;
+			bulletTime_ = 10;
 		}
 		if (bulletTime_ <= 0) {
 			for (int i = 0; i < 32; i++) {
 				if (!bullet_[i]->isShot_) {
 					bullet_[i]->isShot_ = true;
-					bullet_[i]->pos_ = pos_;
+					bullet_[i]->pos_ = {pos_.x - 12, pos_.y}; // 左に12ピクセルずらして発射
+					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
+					break;
+				}
+			}
+
+			for (int i = 0; i < 32; i++) {
+				if (!bullet_[i]->isShot_) {
+					bullet_[i]->isShot_ = true;
+					bullet_[i]->pos_ = {pos_.x + 12, pos_.y}; // 右に12ピクセルずらして発射
+					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
 					break;
 				}
 			}
@@ -88,7 +98,7 @@ void Player::Update(char* keys, char* preKeys) {
 }
 
 void Player::Draw() {
-	Novice::DrawSprite((int)pos_.x - 45, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+	Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
 	for (int i = 0; i < 32; i++) {
 		bullet_[i]->Draw();
 	}

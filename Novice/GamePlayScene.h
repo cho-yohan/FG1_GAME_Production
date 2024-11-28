@@ -18,7 +18,7 @@ public:
 	Boss* boss_;
 
 	Vector2 backGround_[2]{0, 0, 0, -1080};
-	Vector2 backGroundWall_[2]{0, 0, 1310, 0};
+	Vector2 backGroundWall_[2]{-10, 0, 1320, 0};
 	int backGroundSpeed_ = 3;
 	int backGroundTexture_[2];
 	int backGroundWallTexture_[2];

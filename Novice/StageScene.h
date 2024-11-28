@@ -11,8 +11,11 @@ public:
 	void Draw() override;
 
 private:
-	Vector2 StageBackground{610, 0};
+	Vector2 stageBackground_{610, 0};
 	Vector2 backGroundWall_[2]{0, 0, 1310, 0};
-	int StageBackgroundTexture;
+	Vector2 botton_[4]{656, 848, 620, 892, 656, 892, 692, 892};
+
+	int stageBackgroundTexture_;
 	int backGroundWallTexture_[2];
+	int bottonTexture_[4];
 };
