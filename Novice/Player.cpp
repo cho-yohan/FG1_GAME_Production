@@ -98,7 +98,22 @@ void Player::Update(char* keys, char* preKeys) {
 }
 
 void Player::Draw() {
+	// プレイヤーのスプライトを描画
 	Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+
+	if (hitBox_) {
+		float spriteWidth = 94;  // プレイヤーのスプライトの幅（適宜変更）
+		float spriteHeight = 64; // プレイヤーのスプライトの高さ（適宜変更）
+
+		float hitBoxX = pos_.x + spriteWidth / 2;  // プレイヤーの中心X
+		float hitBoxY = pos_.y + spriteHeight / 2; // プレイヤーの中心Y
+		float hitBoxWidth = spriteWidth * 0.3f;    // ヒートボックスの幅
+		float hitBoxHeight = spriteHeight * 0.4f;  // ヒートボックスの高さ
+
+		// 楕円形でヒートボックスを描画
+		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxWidth, (int)hitBoxHeight, 0.0f, WHITE, kFillModeWireFrame);
+	}
+
 	for (int i = 0; i < 32; i++) {
 		bullet_[i]->Draw();
 	}

@@ -108,14 +108,17 @@ void Boss::Draw() {
 	// ボスのスプライトを描画（ボスの位置に合わせてスプライトを描画）
 	Novice::DrawSprite((int)pos_.x, (int)pos_.y, bossTexture, 1, 1, 0.0f, 0xffffffff);
 
-	// ヒートボックス（楕円形）を描画
-	float spriteWidth = 495;                   // ボススプライトの幅
-	float spriteHeight = 325;                  // ボススプライトの高さ
-	float hitBoxX = pos_.x + spriteWidth / 2;  // ボスの中心X
-	float hitBoxY = pos_.y + spriteHeight / 2; // ボスの中心Y
-	float hitBoxWidth = spriteWidth * 0.5f;    // ヒートボックスの幅（ボススプライトの80%）
-	float hitBoxHeight = spriteHeight * 0.4f;  // ヒートボックスの高さ（ボススプライトの50%）
+	if (hitBox_) {
+		// ヒートボックス（楕円形）を描画
+		float spriteWidth = 495;                   // ボススプライトの幅
+		float spriteHeight = 325;                  // ボススプライトの高さ
 
-	// 楕円形でヒートボックスを描画
-	Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxWidth, (int)hitBoxHeight, 0.0f, WHITE, kFillModeWireFrame);
+		float hitBoxX = pos_.x + spriteWidth / 2;  // ボスの中心X
+		float hitBoxY = pos_.y + spriteHeight / 2; // ボスの中心Y
+		float hitBoxWidth = spriteWidth * 0.48f;    // ヒートボックスの幅
+		float hitBoxHeight = spriteHeight * 0.4f;  // ヒートボックスの高さ
+
+		// 楕円形でヒートボックスを描画
+		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxWidth, (int)hitBoxHeight, 0.0f, WHITE, kFillModeWireFrame);
+	}
 }

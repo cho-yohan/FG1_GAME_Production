@@ -10,13 +10,12 @@ public:
 
 public:
 	Vector2 pos_;
-	Vector2 hitSize_{5, 22};
+	float radius_ = 10.0f; // 弾のヒットボックスの半径（円形）
 
-	int speed_;
-	int radius_;
-	int isShot_ = false;
-	int bulletTexture_;
-	bool hitBox_ = true;
+	int speed_;          // 弾の速度
+	int isShot_ = false; // 弾が発射されているか
+	int bulletTexture_;  // 弾のスプライト画像
+	bool hitBox_ = true; // ヒットボックスを描画するかどうかのフラグ
 
 	int direction_; // 追加: 1で右、-1で左、0で無効
 };

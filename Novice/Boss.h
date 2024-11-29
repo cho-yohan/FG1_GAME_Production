@@ -18,6 +18,7 @@ private:
 	float spawnTimer_;  // ボスが登場するまでの待機タイマー
 	bool isFalling_;    // ボスが降りているかどうかのフラグ
 	float fallSpeed_;   // ボスが降りる速さ
+	bool hitBox_ = true;
 
-	int bossTexture;
+	int bossTexture;    //ボスのスプライト
 };
