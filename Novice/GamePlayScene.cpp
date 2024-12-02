@@ -9,7 +9,7 @@ GamePlayScene::~GamePlayScene() {
 }
 
 void GamePlayScene::Init() {
-	player_ = new Player({1920 / 2 - 45, 900}, 4.0f);
+	player_ = new Player({1920 / 2 - 30, 900}, 4.0f);
 	enemy_ = new Enemy({400, 50}, 3, 16, true);
 	boss_ = new Boss({710, -340}, 1.0f);
 

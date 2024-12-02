@@ -7,7 +7,7 @@ Bullet::Bullet(Vector2 pos, int speed, int isShot, int direction) {
 	isShot_ = isShot;
 	direction_ = direction;
 
-	bulletTexture_ = Novice::LoadTexture("./Resources/Player/bullet-copy.png");
+	bulletTexture_ = Novice::LoadTexture("./Resources/Player/bullet.png");
 }
 
 void Bullet::Update() {
@@ -24,15 +24,15 @@ void Bullet::Update() {
 
 void Bullet::Draw() {
 	if (isShot_) {
-		Novice::DrawSprite((int)pos_.x + 30, (int)pos_.y, bulletTexture_, 1, 1, 0.0f, WHITE);
+		Novice::DrawSprite((int)pos_.x, (int)pos_.y, bulletTexture_, 1, 1, 0.0f, WHITE);
 		
 		// ヒットボックスを描画
 		if (hitBox_) {
 			float spriteWidth = 30;  // スプライトの幅（適宜変更）
 			float spriteHeight = 30; // スプライトの高さ（適宜変更）
 
-			float hitBoxX = pos_.x + spriteWidth / 2 + 31;  // プレイヤーの中心X
-			float hitBoxY = pos_.y + spriteHeight / 2 - 4; // プレイヤーの中心Y
+			float hitBoxX = pos_.x + spriteWidth / 2 + 2;  // プレイヤーの中心X
+			float hitBoxY = pos_.y + spriteHeight / 2 - 5; // プレイヤーの中心Y
 
 			// ヒットボックスの半径を設定（ここでは楕円形）
 			float hitBoxRadiusX = spriteWidth * 0.2f;  // スプライト幅の半分をx方向半径に

@@ -74,7 +74,7 @@ void Player::Update(char* keys, char* preKeys) {
 			for (int i = 0; i < 32; i++) {
 				if (!bullet_[i]->isShot_) {
 					bullet_[i]->isShot_ = true;
-					bullet_[i]->pos_ = {pos_.x - 12, pos_.y}; // 左に12ピクセルずらして発射
+					bullet_[i]->pos_ = {pos_.x + 5, pos_.y}; // 左に5ピクセルずらして発射
 					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
 					break;
 				}
@@ -83,7 +83,7 @@ void Player::Update(char* keys, char* preKeys) {
 			for (int i = 0; i < 32; i++) {
 				if (!bullet_[i]->isShot_) {
 					bullet_[i]->isShot_ = true;
-					bullet_[i]->pos_ = {pos_.x + 12, pos_.y}; // 右に12ピクセルずらして発射
+					bullet_[i]->pos_ = {pos_.x + 38, pos_.y}; // 右に38ピクセルずらして発射
 					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
 					break;
 				}
@@ -102,8 +102,8 @@ void Player::Draw() {
 	Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
 
 	if (hitBox_) {
-		float spriteWidth = 94;  // プレイヤーのスプライトの幅（適宜変更）
-		float spriteHeight = 64; // プレイヤーのスプライトの高さ（適宜変更）
+		float spriteWidth = 76;  // プレイヤーのスプライトの幅（適宜変更）
+		float spriteHeight = 60; // プレイヤーのスプライトの高さ（適宜変更）
 
 		float hitBoxX = pos_.x + spriteWidth / 2;  // プレイヤーの中心X
 		float hitBoxY = pos_.y + spriteHeight / 2; // プレイヤーの中心Y
