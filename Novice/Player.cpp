@@ -1,13 +1,14 @@
 #include "Player.h"
 #include "Bullet.h"
 #include <Novice.h>
+#include <math.h>
 
 Player::Player(Vector2 pos, float speed) {
 	pos_ = pos;
 	speed_ = speed;
 
 	for (int i = 0; i < 32; i++) {
-		bullet_[i] = new Bullet({0, 0}, 15, false, 0);
+		bullet_[i] = new Bullet({0, 0}, 17, false, 0);
 	}
 
 	playerTexture_ = Novice::LoadTexture("./Resources/Player/player.png");
@@ -75,7 +76,7 @@ void Player::Update(char* keys, char* preKeys) {
 				if (!bullet_[i]->isShot_) {
 					bullet_[i]->isShot_ = true;
 					bullet_[i]->pos_ = {pos_.x + 5, pos_.y}; // 左に5ピクセルずらして発射
-					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
+					bullet_[i]->speed_ = 17;                  // 速度は一定で、縦方向だけ
 					break;
 				}
 			}
@@ -84,7 +85,7 @@ void Player::Update(char* keys, char* preKeys) {
 				if (!bullet_[i]->isShot_) {
 					bullet_[i]->isShot_ = true;
 					bullet_[i]->pos_ = {pos_.x + 38, pos_.y}; // 右に38ピクセルずらして発射
-					bullet_[i]->speed_ = 15;                  // 速度は一定で、縦方向だけ
+					bullet_[i]->speed_ = 17;                  // 速度は一定で、縦方向だけ
 					break;
 				}
 			}

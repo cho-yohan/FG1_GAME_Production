@@ -1,12 +1,9 @@
 #include "Bullet.h"
 #include <Novice.h>
+#include <cmath>  // 衝突判定のために距離計算に使用
 
-Bullet::Bullet(Vector2 pos, int speed, int isShot, int direction) {
-	pos_ = pos;
-	speed_ = speed;
-	isShot_ = isShot;
-	direction_ = direction;
-
+Bullet::Bullet(Vector2 pos, int speed, int isShot, int direction) 
+	: pos_(pos), speed_(speed), isShot_(isShot), direction_(direction) {
 	bulletTexture_ = Novice::LoadTexture("./Resources/Player/bullet.png");
 }
 
@@ -25,21 +22,11 @@ void Bullet::Update() {
 void Bullet::Draw() {
 	if (isShot_) {
 		Novice::DrawSprite((int)pos_.x, (int)pos_.y, bulletTexture_, 1, 1, 0.0f, WHITE);
-		
-		// ヒットボックスを描画
+
 		if (hitBox_) {
-			float spriteWidth = 30;  // スプライトの幅（適宜変更）
-			float spriteHeight = 30; // スプライトの高さ（適宜変更）
-
-			float hitBoxX = pos_.x + spriteWidth / 2 + 2;  // プレイヤーの中心X
-			float hitBoxY = pos_.y + spriteHeight / 2 - 5; // プレイヤーの中心Y
-
-			// ヒットボックスの半径を設定（ここでは楕円形）
-			float hitBoxRadiusX = spriteWidth * 0.2f;  // スプライト幅の半分をx方向半径に
-			float hitBoxRadiusY = spriteHeight * 0.3f; // スプライト高さの1.5倍をy方向半径に（y方向を長く）
-
-			// 楕円形のヒットボックスを描画
-			Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxRadiusX, (int)hitBoxRadiusY, 0.0f, WHITE, kFillModeWireFrame);
+			Novice::DrawEllipse((int)pos_.x, (int)pos_.y, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
 		}
 	}
 }
+
+void Bullet::SetShot(bool isShot) { isShot_ = isShot; }
