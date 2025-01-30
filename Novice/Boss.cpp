@@ -34,7 +34,7 @@ void Boss::Update() {
 		if (!isBossActive_) {
 			spawnTimer_ += 1.0f / 60.0f; // 60fps基準で進める
 
-			if (spawnTimer_ >= 5.0f) { // 5秒経過後にボスを登場
+			if (spawnTimer_ >= 1.0f) { // 5秒経過後にボスを登場
 				isBossActive_ = true;  // ボスを登場させる
 			}
 		}

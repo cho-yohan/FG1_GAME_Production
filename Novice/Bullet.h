@@ -11,7 +11,7 @@ public:
 
 public:
 	Vector2 pos_;
-	float radius_ = 10.0f; // 弾のヒットボックスの半径（円形）
+	float radius_ = 7.0f; // 弾のヒットボックスの半径（円形）
 
 	int speed_;          // 弾の速度
 	bool isShot_; // 弾が発射されているか

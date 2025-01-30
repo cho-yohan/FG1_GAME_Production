@@ -24,7 +24,7 @@ void Bullet::Draw() {
 		Novice::DrawSprite((int)pos_.x, (int)pos_.y, bulletTexture_, 1, 1, 0.0f, WHITE);
 
 		if (hitBox_) {
-			Novice::DrawEllipse((int)pos_.x, (int)pos_.y, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
+			Novice::DrawEllipse((int)pos_.x + 16, (int)pos_.y + 8, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
 		}
 	}
 }

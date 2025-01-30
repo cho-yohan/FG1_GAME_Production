@@ -22,10 +22,8 @@ void GamePlayScene::Init() {
 
 void GamePlayScene::Update(char* keys, char* preKeys) {
 	player_->Update(keys, preKeys);
-	enemy_->Update();
+	//enemy_->Update();
 	boss_->Update();
-
-	Collision collision(boss_, &bullets_);
 	collision_->Update();
 
 	backGround_[0].y += backGroundSpeed_;
@@ -44,7 +42,7 @@ void GamePlayScene::Draw() {
 		Novice::DrawSprite((int)backGround_[i].x, (int)backGround_[i].y, backGroundTexture_[i], 1, 1, 0.0f, 0xffffffff);
 	}
 	player_->Draw();
-	enemy_->Draw();
+	//enemy_->Draw();
 	boss_->Draw();
 
 	// 弾の描画

@@ -4,10 +4,10 @@
 
 class Collision {
 public:
-	Collision(Boss* boss, std::vector<Bullet>* bullets);
+	Collision(Boss* boss, Bullet* bullets);
 	void Update();
 
 private:
 	Boss* boss_;
-	std::vector<Bullet>* bullets_;
+	Bullet* bullets_;
 };
