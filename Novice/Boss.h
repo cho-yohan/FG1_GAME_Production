@@ -10,7 +10,7 @@ public:
 	~Boss();
 	void Update();
 	void Draw();
-	void TakeDamage(int damage);  // ダメージを受ける関数を追加
+	void TakeDamage();  // ダメージを受ける関数を追加
 
 	// ヒートボックス（楕円形）を描画
 	float spriteWidth = 495;  // ボススプライトの幅
@@ -26,6 +26,8 @@ public:
 
 	Vector2 pos_; // ボスの位置
 
+	int hpSizeX, hpSizeY;
+
 private:
 	float speed_;                    // ボスの移動速度
 	int moveDirection_;              // 移動方向：1 = 右、-1 = 左、2 = 下、-2 = 上
@@ -40,7 +42,15 @@ private:
 	std::vector<RotatingBullet> rotatingBullets; // 回転弾
 	float attackTimer_;              // 攻撃のタイマー
 	float attackInterval_;           // 攻撃の間隔
-	int hp_;                         // ボスのHPを追加
+
+	int hp;
+	int hpPosX, hpPosY;
+
+	int hpTexture; 
+	int hpTexturePosX, hpTexturePosY;
+
+	int hpIcon;
+	int hpIconPosX, hpIconPosY;
 
 	void FireBullets(); // 弾丸を発射する関数
 	void FireBulletSpiral(); // 回転弾を発射する関数

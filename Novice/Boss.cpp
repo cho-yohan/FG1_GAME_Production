@@ -4,8 +4,8 @@
 
 Boss::Boss(Vector2 pos, float speed) 
 	: moveDirection_(1), isBossActive_(false), spawnTimer_(0.0f), isFalling_(true), fallSpeed_(1.0f), 
-	attackTimer_(0.0f), attackInterval_(1.0f), hp_(100), 
-	hitBoxX(0), hitBoxY(0), hitBoxWidth(100), hitBoxHeight(100) { // 攻撃間隔は1秒
+	attackTimer_(0.0f), attackInterval_(1.0f), hpSizeX(680), hpSizeY(58),
+	hitBoxX(0), hitBoxY(0), hitBoxWidth(0), hitBoxHeight(0) { // 攻撃間隔は1秒
 	pos_ = pos;
 	speed_ = speed;
 	isMoving_ = false; // 最初は移動しない状態
@@ -13,16 +13,16 @@ Boss::Boss(Vector2 pos, float speed)
 
 	// ボスのスプライトを読み込む
 	bossTexture = Novice::LoadTexture("./Resources/Boss/boss.png"); // ボスのスプライト画像パスを設定
+	hpTexture = Novice::LoadTexture("./Resources/Boss/HPbar.png");
+	hpIcon = Novice::LoadTexture("./Resources/Boss/bossIcon.png");
 }
 
 Boss::~Boss() {}
 
-void Boss::TakeDamage(int damage) {
-	hp_ -= damage; // ダメージを受ける
-
+void Boss::TakeDamage() {
 	// HPが0以下になった場合、ボスを倒す
-	if (hp_ <= 0) {
-		hp_ = 0;
+	if (hpSizeX <= 0) {
+		hpSizeX = 0;
 		isBossActive_ = false; // ボスが倒れたので非アクティブにする
 		// 他の死亡処理をここに追加することもできる
 	}
@@ -159,6 +159,12 @@ void Boss::Draw() {
 
 	for (auto& bullet : rotatingBullets) {
 		bullet.Draw();
+	}
+
+	if (isMoving_ == true) {
+		Novice::DrawBox(hpPosX + 620, hpPosY + 22, hpSizeX, hpSizeY, 0.0f, RED, kFillModeSolid);
+		Novice::DrawSprite(hpTexturePosX + 610, hpTexturePosY + 20, hpTexture, 1, 1, 0.0f, WHITE);
+		Novice::DrawSprite(hpIconPosX + 930, hpIconPosX, hpIcon, 1, 1, 0.0f, WHITE);
 	}
 }
 

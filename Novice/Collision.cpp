@@ -14,11 +14,17 @@ void Collision::Update() {
 			float distance = sqrtf(static_cast<float>(pow(boss_->hitBoxX - player_->bullet_[i]->pos_.x, 2)) + 
 				                   static_cast<float>(pow(boss_->hitBoxY - player_->bullet_[i]->pos_.y, 2)));
 
-			if (distance <= boss_->hitBoxWidth + player_->bullet_[i]->radius_ && 
+			// 衝突判定
+			if (boss_->hpSizeX >= 0 && 
+				distance <= boss_->hitBoxWidth + player_->bullet_[i]->radius_ && 
 				distance <= boss_->hitBoxHeight + player_->bullet_[i]->radius_) {
-				// 当たり判定が成功した場合の処理
-				boss_->isSpawnBoss_ = false;          // ボスにダメージを与える（ダメージ量は適宜調整）
-				player_->bullet_[i]->isShot_ = false; // 弾を消す
+
+				// 弾がまだボスに当たっていない場合
+				if (player_->bullet_[i]->isShot_) {
+					player_->bullet_[i]->SetShot(false);  // 弾を消す
+					boss_->hpSizeX -= 1;                  // ボスにダメージを与える
+					player_->bullet_[i]->isShot_ = false; // 弾を消したことを記録
+				}
 			}
 		}
 	}

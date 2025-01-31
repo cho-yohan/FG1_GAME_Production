@@ -92,6 +92,15 @@ void Player::Update(char* keys, char* preKeys) {
 		}
 	}
 
+	for (int i = 0; i < 32; i++) {
+		if (bullet_[i]->isShot_) {
+			// 画面外に出た場合
+			if (bullet_[i]->pos_.y < 0 || bullet_[i]->pos_.y > 1080 || bullet_[i]->pos_.x < 0 || bullet_[i]->pos_.x > 1920) {
+				bullet_[i]->isShot_ = false; // 弾を無効化
+			}
+		}
+	}
+
 	// 弾の更新
 	for (int i = 0; i < 32; i++) {
 		bullet_[i]->Update();
