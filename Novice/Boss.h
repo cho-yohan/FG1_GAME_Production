@@ -22,13 +22,13 @@ public:
 	float hitBoxHeight; // ヒートボックスの高さ
 
 	int isSpawnBoss_ = true;
+	bool isMoving_;     // ボスが動くか止まるかのフラグ
 
 	Vector2 pos_; // ボスの位置
 
 private:
 	float speed_;                    // ボスの移動速度
 	int moveDirection_;              // 移動方向：1 = 右、-1 = 左、2 = 下、-2 = 上
-	bool isMoving_;                  // ボスが動くか止まるかのフラグ
 	float moveTimer_;                // ボスが止まるか動くかを切り替えるためのタイマー
 	bool isBossActive_;              // ボスが登場したかどうかのフラグ
 	float spawnTimer_;               // ボスが登場するまでの待機タイマー

@@ -14,7 +14,7 @@ public:
 	float radius_ = 7.0f; // 弾のヒットボックスの半径（円形）
 
 	int speed_;          // 弾の速度
-	bool isShot_; // 弾が発射されているか
+	bool isShot_ = true; // 弾が発射されているか
 	int bulletTexture_;  // 弾のスプライト画像
 	bool hitBox_ = true; // ヒットボックスを描画するかどうかのフラグ
 

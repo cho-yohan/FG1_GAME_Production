@@ -51,14 +51,14 @@ void Player::Update(char* keys, char* preKeys) {
 	pos_.y += moveY * speed_;
 
 	// プレイヤーの移動制限（画面外に出ないように制限）
-	if (pos_.x < 0) {
-		pos_.x = 0;
+	if (pos_.x < 600) {
+		pos_.x = 600;
 	}
 	if (pos_.y < 0) {
 		pos_.y = 0;
 	}
-	if (pos_.x > 1290) { // 仮に右端が1290とした場合
-		pos_.x = 1290;
+	if (pos_.x > 1242) { // 仮に右端が1290とした場合
+		pos_.x = 1242;
 	}
 	if (pos_.y > 1010) { // 仮に下端が1010とした場合
 		pos_.y = 1010;

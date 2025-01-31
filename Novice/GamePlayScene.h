@@ -22,7 +22,7 @@ public:
 
 	Vector2 backGround_[2]{0, 0, 0, -1080};
 	Vector2 backGroundWall_[2]{-10, 0, 1320, 0};
-	int backGroundSpeed_ = 3;
+	int backGroundSpeed_ = 4;
 	int backGroundTexture_[2];
 	int backGroundWallTexture_[2];
 

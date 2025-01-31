@@ -1,13 +1,15 @@
 #pragma once
 #include "Boss.h"
-#include "Bullet.h"
+#include "Player.h"
 
 class Collision {
 public:
-	Collision(Boss* boss, Bullet* bullets);
+	Collision(Boss* boss, Player* player);
 	void Update();
 
 private:
 	Boss* boss_;
-	Bullet* bullets_;
+	Player* player_;
+
+	bool isCollision = false;
 };

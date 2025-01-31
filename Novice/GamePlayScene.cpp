@@ -13,11 +13,13 @@ void GamePlayScene::Init() {
 	player_ = new Player({1920 / 2 - 30, 900}, 4.0f);
 	enemy_ = new Enemy({710, 0}, 2.0f);
 	boss_ = new Boss({710, -340}, 1.0f);
-
+	
 	backGroundTexture_[0] = Novice::LoadTexture("./Resources/Scene/background0.png");
 	backGroundTexture_[1] = Novice::LoadTexture("./Resources/Scene/background1.png");
 	backGroundWallTexture_[0] = Novice::LoadTexture("./Resources/Scene/wall.png");
 	backGroundWallTexture_[1] = Novice::LoadTexture("./Resources/Scene/wall.png");
+
+	collision_ = new Collision(boss_, player_);
 }
 
 void GamePlayScene::Update(char* keys, char* preKeys) {
