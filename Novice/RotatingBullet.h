@@ -3,7 +3,7 @@
 
 class RotatingBullet {
 public:
-    RotatingBullet(Vector2 pos, int speed, float angle);
+	RotatingBullet(Vector2 pos, int speed, float angle);
     void Update();
     void Draw();
 

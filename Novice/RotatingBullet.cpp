@@ -4,7 +4,7 @@
 
 RotatingBullet::RotatingBullet(Vector2 pos, int speed, float angle)
     : pos_(pos), speed_(speed), angle_(angle) {
-    bulletTexture_ = Novice::LoadTexture("./Resources/Boss/bossBullet3.png");
+    bulletTexture_ = Novice::LoadTexture("./Resources/Boss/bossBullet2.png");
 }
 
 void RotatingBullet::Update() {
