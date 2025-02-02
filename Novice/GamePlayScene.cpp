@@ -4,14 +4,12 @@
 
 GamePlayScene::~GamePlayScene() {
 	delete player_;
-	delete enemy_;
 	delete boss_;
 	delete collision_;
 }
 
 void GamePlayScene::Init() {
 	player_ = new Player({1920 / 2 - 30, 900}, 4.0f);
-	enemy_ = new Enemy({710, 0}, 2.0f);
 	boss_ = new Boss({710, -340}, 1.0f);
 	
 	backGroundTexture_[0] = Novice::LoadTexture("./Resources/Scene/background0.png");
@@ -24,9 +22,10 @@ void GamePlayScene::Init() {
 
 void GamePlayScene::Update(char* keys, char* preKeys) {
 	player_->Update(keys, preKeys);
-	//enemy_->Update();
 	boss_->Update();
-	collision_->Update();
+	collision_->playerBulletCollision();
+	collision_->bossBulletCollision();
+	collision_->bossRotatingBulletCollision();
 
 	backGround_[0].y += backGroundSpeed_;
 	backGround_[1].y += backGroundSpeed_;
@@ -44,7 +43,6 @@ void GamePlayScene::Draw() {
 		Novice::DrawSprite((int)backGround_[i].x, (int)backGround_[i].y, backGroundTexture_[i], 1, 1, 0.0f, 0xffffffff);
 	}
 	player_->Draw();
-	//enemy_->Draw();
 	boss_->Draw();
 
 	// 弾の描画

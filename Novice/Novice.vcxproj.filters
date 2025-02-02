@@ -62,9 +62,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソースファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
@@ -77,10 +74,10 @@
     <ClCompile Include="BossBullet.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="RotatingBullet.cpp">
+    <ClCompile Include="Collision.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
+    <ClCompile Include="RotatingBullet.cpp">
       <Filter>ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,9 +171,6 @@
     <ClInclude Include="Player.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
@@ -189,10 +183,10 @@
     <ClInclude Include="BossBullet.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="RotatingBullet.h">
+    <ClInclude Include="Collision.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
+    <ClInclude Include="RotatingBullet.h">
       <Filter>ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>

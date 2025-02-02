@@ -12,6 +12,9 @@ Player::Player(Vector2 pos, float speed) {
 	}
 
 	playerTexture_ = Novice::LoadTexture("./Resources/Player/player.png");
+	life[0] = Novice::LoadTexture("./Resources/Player/player.png");
+	life[1] = Novice::LoadTexture("./Resources/Player/player.png");
+	life[2] = Novice::LoadTexture("./Resources/Player/player.png");
 }
 
 Player::~Player() {
@@ -95,7 +98,8 @@ void Player::Update(char* keys, char* preKeys) {
 	for (int i = 0; i < 32; i++) {
 		if (bullet_[i]->isShot_) {
 			// 画面外に出た場合
-			if (bullet_[i]->pos_.y < 0 || bullet_[i]->pos_.y > 1080 || bullet_[i]->pos_.x < 0 || bullet_[i]->pos_.x > 1920) {
+			if (bullet_[i]->pos_.y < 0 || bullet_[i]->pos_.y > 1080 || 
+				bullet_[i]->pos_.x < 0 || bullet_[i]->pos_.x > 1920) {
 				bullet_[i]->isShot_ = false; // 弾を無効化
 			}
 		}
@@ -108,20 +112,28 @@ void Player::Update(char* keys, char* preKeys) {
 }
 
 void Player::Draw() {
-	// プレイヤーのスプライトを描画
-	Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+	if (isAlive == true) {
+		// プレイヤーのスプライトを描画
+		Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+	}
 
-	if (hitBox_) {
-		float spriteWidth = 76;  // プレイヤーのスプライトの幅（適宜変更）
-		float spriteHeight = 60; // プレイヤーのスプライトの高さ（適宜変更）
+	if (life_1 == true) {
+		Novice::DrawSprite((int)lifePos[0].x, (int)lifePos[0].y, life[0], 0.5, 0.5, 0.0f, WHITE);
+	}
+	if (life_2 == true) {
+		Novice::DrawSprite((int)lifePos[1].x, (int)lifePos[1].y, life[1], 0.5, 0.5, 0.0f, WHITE);
+	}
+	if (life_3 == true) {
+		Novice::DrawSprite((int)lifePos[2].x, (int)lifePos[2].y, life[2], 0.5, 0.5, 0.0f, WHITE);
+	}
 
-		float hitBoxX = pos_.x + spriteWidth / 2;  // プレイヤーの中心X
-		float hitBoxY = pos_.y + spriteHeight / 2; // プレイヤーの中心Y
-		float hitBoxWidth = spriteWidth * 0.3f;    // ヒートボックスの幅
-		float hitBoxHeight = spriteHeight * 0.4f;  // ヒートボックスの高さ
+	// 히트박스를 그리기 전에 위치 계산
+	hitBoxX = pos_.x + spriteWidth / 2;  // 플레이어의 중심 X (스프라이트의 가운데)
+	hitBoxY = pos_.y + spriteHeight / 2; // 플레이어의 중심 Y (스프라이트의 가운데)
 
+	if (hitBox_ == true) {
 		// 楕円形でヒートボックスを描画
-		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxWidth, (int)hitBoxHeight, 0.0f, WHITE, kFillModeWireFrame);
+		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)radius, (int)radius, 0.0f, WHITE, kFillModeWireFrame);
 	}
 
 	for (int i = 0; i < 32; i++) {

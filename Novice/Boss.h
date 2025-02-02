@@ -18,13 +18,14 @@ public:
 
 	float hitBoxX;      // ボスの中心X
 	float hitBoxY;      // ボスの中心Y
-	float hitBoxWidth;  // ヒートボックスの幅
-	float hitBoxHeight; // ヒートボックスの高さ
+	float radius_ = 220;
 
 	int isSpawnBoss_ = true;
 	bool isMoving_;     // ボスが動くか止まるかのフラグ
 
 	Vector2 pos_; // ボスの位置
+	std::vector<BossBullet> bullets; // ボスの弾丸
+	std::vector<RotatingBullet> rotatingBullets;
 
 	int hpSizeX, hpSizeY;
 
@@ -38,8 +39,6 @@ private:
 	float fallSpeed_;                // ボスが降りる速さ
 	bool hitBox_ = true;             // ヒットボックスを描画するかどうかのフラグ
 	int bossTexture;                 // ボスのスプライト
-	std::vector<BossBullet> bullets; // ボスの弾丸
-	std::vector<RotatingBullet> rotatingBullets; // 回転弾
 	float attackTimer_;              // 攻撃のタイマー
 	float attackInterval_;           // 攻撃の間隔
 
@@ -52,6 +51,17 @@ private:
 	int hpIcon;
 	int hpIconPosX, hpIconPosY;
 
+	bool isRotating_ = false;            // 回転する弾丸が発射中かどうか
+	float rotateBulletTimer_ = 0.0f;     // 回転弾発射時間
+	float rotateBulletDuration_ = 10.0f; // 回転弾の発射時間（秒）
+
+	float bulletAngle_ = 90.0f;    // 발사 각도: 90도로 시작 (0도에서 180도 범위)
+	float angleChangeRate_ = 3.0f; // 각도 변화 속도 조정
+
+	// 발사 간격을 위한 타이머 추가
+	float fireRate_ = 0.1f;  // 발사 간격 (0.1초)
+	float fireTimer_ = 0.0f;
+
 	void FireBullets(); // 弾丸を発射する関数
-	void FireBulletSpiral(); // 回転弾を発射する関数
+	void FireRotatingBullets(); // 周囲に散らばる弾丸を発射する関数
 };

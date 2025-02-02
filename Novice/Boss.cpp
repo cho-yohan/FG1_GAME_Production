@@ -4,8 +4,8 @@
 
 Boss::Boss(Vector2 pos, float speed) 
 	: moveDirection_(1), isBossActive_(false), spawnTimer_(0.0f), isFalling_(true), fallSpeed_(1.0f), 
-	attackTimer_(0.0f), attackInterval_(1.0f), hpSizeX(680), hpSizeY(58),
-	hitBoxX(0), hitBoxY(0), hitBoxWidth(0), hitBoxHeight(0) { // 攻撃間隔は1秒
+	attackTimer_(0.0f), attackInterval_(1.0f), hpSizeX(680), hpSizeY(58), rotateBulletTimer_(0.0f),
+      isRotating_(false) { // 攻撃間隔は1秒
 	pos_ = pos;
 	speed_ = speed;
 	isMoving_ = false; // 最初は移動しない状態
@@ -30,6 +30,24 @@ void Boss::TakeDamage() {
 
 void Boss::Update() {
 	if (isSpawnBoss_) {
+
+		// 回転する弾丸が発射されている場合
+		if (isRotating_) {
+			rotateBulletTimer_ += 1.0f / 60.0f; // 60fps 기준으로 타이머 진행
+
+			if (rotateBulletTimer_ >= rotateBulletDuration_) {
+				isRotating_ = false;       // 회전하는 탄막 발사 종료
+				isMoving_ = true;          // 보스 다시 움직이기 시작
+				rotateBulletTimer_ = 0.0f; // 타이머 초기화
+			} else {
+				fireTimer_ += 1.0f / 60.0f; // 60fps 기준으로 발사 타이머 진행
+				if (fireTimer_ >= fireRate_) {
+					FireRotatingBullets();
+					fireTimer_ = 0.0f; // 타이머 리셋
+				}
+			}
+		}
+
 		// ゲーム開始から5秒経過したらボスを登場させる
 		if (!isBossActive_) {
 			spawnTimer_ += 1.0f / 60.0f; // 60fps基準で進める
@@ -112,29 +130,46 @@ void Boss::Update() {
 				}
 			}
 
-			// ボスが止まっている場合に弾を発射
-			if (moveDirection_ == 0) {
-				attackTimer_ += 1.0f / 60.0f; // 60fps基準で進める
+			// 回転する弾丸が発射されていない場合にボスを移動させる部分
+			if (!isRotating_) {
+				// 通常の攻撃処理と移動関連のコード
+				if (moveDirection_ == 0) {
+					attackTimer_ += 1.0f / 60.0f; // 60fps基準でタイマーを増加
 
-				if (attackTimer_ >= attackInterval_) { // 一定時間ごとに弾を発射
-					// 攻撃方法をランダムで選択
-					int attackType = rand() % 2; // 0: 通常攻撃, 1: 扇型攻撃
-					if (attackType == 0) {
-						FireBullets(); // 通常弾発射
-					} else {
-						//FireBulletSpiral(); // 扇型弾発射
+					if (attackTimer_ >= attackInterval_) {
+						int attackType = rand() % 2; // 3種類の攻撃タイプからランダムで選択
+						if (attackType == 0) {
+							FireBullets(); // 通常の弾丸を発射
+						} else if (attackType == 1) {
+							FireRotatingBullets(); // 回転する弾丸を発射
+							isRotating_ = true;    // 回転する弾丸発射中フラグを立てる
+							isMoving_ = false;     // 回転する弾丸発射中はボスを停止させる
+						}
+						attackTimer_ = 0.0f; // タイマーをリセット
 					}
-					attackTimer_ = 0.0f; // タイマーをリセット
 				}
 			}
 
-			// 弾の更新
-			for (auto& bullet : bullets) {
-				bullet.Update();
-			}
+			// 弾の更新と削除
+			for (auto it = bullets.begin(); it != bullets.end();) {
+				it->Update();
 
-			for (auto& bullet : rotatingBullets) {
-				bullet.Update();
+				// 弾が画面外に出た場合は削除
+				if (!it->hitBox_) {
+					it = bullets.erase(it); // 弾を削除
+				} else {
+					++it;
+				}
+			}
+			for (auto it = rotatingBullets.begin(); it != rotatingBullets.end();) {
+				it->Update();
+
+				// 화면 밖으로 나간 회전하는 탄환을 삭제
+				if (!it->hitBox_) {
+					it = rotatingBullets.erase(it); // 탄환 삭제
+				} else {
+					++it;
+				}
 			}
 		}
 	}
@@ -145,26 +180,25 @@ void Boss::Draw() {
 	for (auto& bullet : bullets) {
 		bullet.Draw();
 	}
+	for (auto& bullet : rotatingBullets) {
+		bullet.Draw();
+	}
 
 	// ボスのスプライトを描画（ボスの位置に合わせてスプライトを描画）
 	Novice::DrawSprite((int)pos_.x, (int)pos_.y, bossTexture, 1, 1, 0.0f, 0xffffffff);
 
 	hitBoxX = pos_.x + spriteWidth / 2;  // ボスの中心X
-	hitBoxY = pos_.y + spriteHeight / 2; // ボスの中心Y
-	hitBoxWidth = spriteWidth * 0.48f;   // ヒートボックスの幅
-	hitBoxHeight = spriteHeight * 0.4f;  // ヒートボックスの高さ
+	hitBoxY = pos_.y + spriteHeight / 2 - 75; // ボスの中心Y
 
-	// 楕円形でヒートボックスを描画
-	Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)hitBoxWidth, (int)hitBoxHeight, 0.0f, WHITE, kFillModeWireFrame);
-
-	for (auto& bullet : rotatingBullets) {
-		bullet.Draw();
+	if (hitBox_ == true) {
+		// 楕円形でヒートボックスを描画
+		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
 	}
 
 	if (isMoving_ == true) {
 		Novice::DrawBox(hpPosX + 620, hpPosY + 22, hpSizeX, hpSizeY, 0.0f, RED, kFillModeSolid);
 		Novice::DrawSprite(hpTexturePosX + 610, hpTexturePosY + 20, hpTexture, 1, 1, 0.0f, WHITE);
-		Novice::DrawSprite(hpIconPosX + 930, hpIconPosX, hpIcon, 1, 1, 0.0f, WHITE);
+		Novice::DrawSprite(hpIconPosX + 930, hpIconPosY + 3, hpIcon, 1, 1, 0.0f, WHITE);
 	}
 }
 
@@ -186,34 +220,20 @@ void Boss::FireBullets() {
 	}
 }
 
-void Boss::FireBulletSpiral() {
-	// ボスの位置を基準にして弾を放射
-	int numBullets = 12;                     // 12個の弾を発射
-	float angleOffset = 360.0f / numBullets; // 弾の間隔角度
+void Boss::FireRotatingBullets() {
+	float offsetX = 200.0f; // 발사 위치 X 오프셋
+	float offsetY = 160.0f; // 발사 위치 Y 오프셋
 
-	// ボスの中心を基準にして少し位置を調整
-	float offsetX = 220.0f; // 発射位置をX方向に50ピクセルオフセット
-	float offsetY = 190.0f; // 発射位置をY方向に50ピクセルオフセット
+	// 발사되는 각도 계산 (90도에서 270도 사이로)
+	float angle = bulletAngle_; // 현재 각도
 
-	// 各弾を発射
-	for (int i = 0; i < numBullets; ++i) {
-		// 弾の放射角度を決定
-		float angle = i * angleOffset;
+	// 발사 위치 계산
+	Vector2 bulletPos = Vector2(pos_.x + offsetX, pos_.y + offsetY);
 
-		// 発射された弾の初期位置を計算（ボスから放射される位置）
-		Vector2 bulletPos = Vector2(pos_.x + offsetX, pos_.y + offsetY);
+	// 회전하는 탄막 발사
+	RotatingBullet bullet(bulletPos, 5, angle);
+	rotatingBullets.push_back(bullet); // 회전하는 탄막 리스트에 추가
 
-		// 弾の進行方向（放射方向）
-		Vector2 bulletDirection = Vector2(cosf(angle), sinf(angle));
-
-		// 弾の速度
-		float speed = 5.0f;
-
-		// 回転の速度（時計回り）
-		float rotationSpeed = 0.05f; // 回転の速さ
-
-		// 発射された弾を回転させるためのオブジェクトを作成
-		RotatingBullet bullet(bulletPos, bulletDirection, speed, rotationSpeed);
-		rotatingBullets.push_back(bullet);
-	}
+	// 각도를 점차적으로 증가시켜 회전
+	bulletAngle_ += angleChangeRate_; // 각도 변화 속도 조정 (90도에서 270도까지)
 }

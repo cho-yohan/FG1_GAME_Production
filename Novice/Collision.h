@@ -5,7 +5,9 @@
 class Collision {
 public:
 	Collision(Boss* boss, Player* player);
-	void Update();
+	void playerBulletCollision();
+	void bossBulletCollision();
+	void bossRotatingBulletCollision();
 
 private:
 	Boss* boss_;

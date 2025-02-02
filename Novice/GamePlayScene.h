@@ -1,6 +1,5 @@
 #pragma once
 #include "Boss.h"
-#include "Enemy.h"
 #include "IScene.h"
 #include "Player.h"
 #include "Vector2.h"
@@ -16,7 +15,6 @@ public:
 
 public:
 	Player* player_;
-	Enemy* enemy_;
 	Boss* boss_;
 	Collision* collision_;
 
