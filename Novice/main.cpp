@@ -4,7 +4,7 @@
 #include "TitleScene.h"
 #include <Novice.h>
 
-const char kWindowTitle[] = "FG1_GAME";
+const char kWindowTitle[] = "6142_Eclipse_of_War";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
