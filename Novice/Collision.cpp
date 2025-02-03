@@ -46,29 +46,27 @@ void Collision::bossBulletCollision() {
 		// ボスの弾を1つずつ確認
 		for (int i = 0; i < boss_->bullets.size(); i++) {
 			// ボスの弾とプレイヤーのヒットボックスの中心間の距離を計算
-			float distance = sqrtf(static_cast<float>(pow(boss_->bullets[i].pos_.x - player_->hitBoxX, 2)) + 
-				                   static_cast<float>(pow(boss_->bullets[i].pos_.y - player_->hitBoxY, 2)));
+			float distance = sqrtf(static_cast<float>(pow(boss_->bullets[i].hitBoxX - player_->hitBoxX, 2)) + 
+				                   static_cast<float>(pow(boss_->bullets[i].hitBoxY - player_->hitBoxY, 2)));
 
 			// 衝突判定: ボスの弾とプレイヤーのヒットボックスの中心間の距離が、両者の半径の合計より小さい場合に衝突とみなす
 			if (distance <= (boss_->bullets[i].radius_ + player_->radius)) {
-				if (distance <= (boss_->bullets[i].radius_ + player_->radius)) {
-					// 플레이어가 충돌했을 때
-					if (!player_->isInvincible) {
-						// 라이프 감소
-						if (player_->life_3) {
-							player_->life_3 = false;
-						} else if (player_->life_2) {
-							player_->life_2 = false;
-						} else if (player_->life_1) {
-							player_->life_1 = false;
-						}
-
-						// 무적 상태로 전환하고, 3초 동안 공격을 받지 않음
-						player_->isInvincible = true;
-						player_->invincibleTime = 180.0f; // 3초 간격 (프레임 기반으로 180 프레임 = 3초)
-
-						break;
+				// 플레이어가 충돌했을 때
+				if (!player_->isInvincible) {
+					// 라이프 감소
+					if (player_->life_3) {
+						player_->life_3 = false;
+					} else if (player_->life_2) {
+						player_->life_2 = false;
+					} else if (player_->life_1) {
+						player_->life_1 = false;
 					}
+
+					// 무적 상태로 전환하고, 3초 동안 공격을 받지 않음
+					player_->isInvincible = true;
+					player_->invincibleTime = 180.0f; // 3초 간격 (프레임 기반으로 180 프레임 = 3초)
+
+					break;
 				}
 				
 			}
@@ -94,8 +92,8 @@ void Collision::bossRotatingBulletCollision() {// ボスが移動中の場合、
 		// ボスの弾を1つずつ確認
 		for (int i = 0; i < boss_->rotatingBullets.size(); i++) {
 			// ボスの弾とプレイヤーのヒットボックスの中心間の距離を計算
-			float distance = sqrtf(static_cast<float>(pow(boss_->rotatingBullets[i].pos_.x - player_->hitBoxX, 2)) + 
-				                   static_cast<float>(pow(boss_->rotatingBullets[i].pos_.y - player_->hitBoxY, 2)));
+			float distance = sqrtf(static_cast<float>(pow(boss_->rotatingBullets[i].hitBoxX - player_->hitBoxX, 2)) + 
+				                   static_cast<float>(pow(boss_->rotatingBullets[i].hitBoxY - player_->hitBoxY, 2)));
 
 			// 衝突判定: ボスの弾とプレイヤーのヒットボックスの中心間の距離が、両者の半径の合計より小さい場合に衝突とみなす
 			if (distance <= (boss_->rotatingBullets[i].radius_ + player_->radius)) {

@@ -1,6 +1,7 @@
 #include "GamePlayScene.h"
 #include <Novice.h>
 #include <math.h>
+#include <string>
 
 GamePlayScene::~GamePlayScene() {
 	delete player_;
@@ -30,10 +31,6 @@ void GamePlayScene::Update(char* keys, char* preKeys) {
 	if (boss_->hpSizeX <= 0) {
 		boss_->hpSizeX = 0;
 		sceneNo = CLEAR;
-	}
-
-	if (player_->life_1 == false) {
-		sceneNo = OVER;
 	}
 
 	backGround_[0].y += backGroundSpeed_;

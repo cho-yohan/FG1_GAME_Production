@@ -9,7 +9,12 @@ public:
 
 public:
     Vector2 pos_;        // 弾の位置
+	float spriteWidth = 80;
+	float spriteHeight = 80;
     float radius_ = 40.0f;  // 弾の半径
+	float hitBoxX;
+	float hitBoxY;
+
     int speed_;          // 弾の速度
     float angle_;        // 弾丸の進行方向（ラジアン）
     int bulletTexture_;  // 弾のスプライト画像

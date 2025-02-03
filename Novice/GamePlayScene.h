@@ -25,4 +25,6 @@ public:
 	int backGroundWallTexture_[2];
 
 	std::vector<Bullet> bullets_; // 弾のリスト
+
+	int explosion[14];
 };

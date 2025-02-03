@@ -21,8 +21,11 @@ void RotatingBullet::Update() {
 void RotatingBullet::Draw() {
     Novice::DrawSprite((int)pos_.x, (int)pos_.y, bulletTexture_, 1, 1, 0.0f, 0xffffffff);
 
+    hitBoxX = pos_.x + spriteWidth / 2;
+	hitBoxY = pos_.y + spriteHeight / 2;
+
     // ヒットボックスを描画
-    if (hitBox_ == true) {
-        Novice::DrawEllipse((int)pos_.x + 40, (int)pos_.y + 40, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
+    if (hitBox_ == false) {
+		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
     }
 }
