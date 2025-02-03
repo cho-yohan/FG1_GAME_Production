@@ -21,8 +21,8 @@ public:
 	float spriteWidth = 76;
 	float spriteHeight = 60;
 	float radius = 25;
-	float hitBoxX;  // プレイヤーの中心X
-	float hitBoxY; // プレイヤーの中心Y
+	float hitBoxX;
+	float hitBoxY;
 
 	bool isAlive = true;
 	bool life_1 = true;
