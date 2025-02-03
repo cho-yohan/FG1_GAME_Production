@@ -19,7 +19,7 @@ void Collision::playerBulletCollision() {
 				// 弾がボスに当たっている場合
 				if (player_->bullet_[i]->isShot_) {
 					player_->bullet_[i]->SetShot(false);  // 弾を消す
-					boss_->hpSizeX -= 10;                  // ボスにダメージを与える
+					boss_->hpSizeX -= 2;                  // ボスにダメージを与える
 					player_->bullet_[i]->isShot_ = false; // 弾を消したことを記録
 				}
 			}
