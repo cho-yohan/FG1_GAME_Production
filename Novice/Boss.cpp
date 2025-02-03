@@ -24,6 +24,7 @@ void Boss::TakeDamage() {
 		hpSizeX = 0;
 		isBossActive_ = false; // ボスが倒れたので非アクティブにする
 		// 他の死亡処理をここに追加することもできる
+		
 	}
 }
 
@@ -191,7 +192,7 @@ void Boss::Draw() {
 	hitBoxX = pos_.x + spriteWidth / 2;       // ボスの中心X
 	hitBoxY = pos_.y + spriteHeight / 2 - 75; // ボスの中心Y
 
-	if (hitBox_ == true) {
+	if (hitBox_ == false) {
 		// 楕円形でヒートボックスを描画
 		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)radius_, (int)radius_, 0.0f, WHITE, kFillModeWireFrame);
 	}

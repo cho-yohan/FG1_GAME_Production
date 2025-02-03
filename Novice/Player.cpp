@@ -113,8 +113,15 @@ void Player::Update(char* keys, char* preKeys) {
 
 void Player::Draw() {
 	if (isAlive == true) {
-		// プレイヤーのスプライトを描画
-		Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+		if (isInvincible) {
+			// 무적 상태일 때, 깜빡임 효과를 주기 위해 일정 간격으로 스프라이트를 그리거나 안 그리도록 함
+			if (static_cast<int>(invincibleTime / 10) % 2 == 0) {
+				Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+			}
+		} else {
+			// 무적 상태가 아니면 정상적으로 그리기
+			Novice::DrawSprite((int)pos_.x, (int)pos_.y, playerTexture_, 1, 1, 0.0f, WHITE);
+		}
 	}
 
 	if (life_1 == true) {
@@ -131,7 +138,7 @@ void Player::Draw() {
 	hitBoxX = pos_.x + spriteWidth / 2;  // 플레이어의 중심 X (스프라이트의 가운데)
 	hitBoxY = pos_.y + spriteHeight / 2; // 플레이어의 중심 Y (스프라이트의 가운데)
 
-	if (hitBox_ == true) {
+	if (hitBox_ == false) {
 		// 楕円形でヒートボックスを描画
 		Novice::DrawEllipse((int)hitBoxX, (int)hitBoxY, (int)radius, (int)radius, 0.0f, WHITE, kFillModeWireFrame);
 	}

@@ -31,4 +31,7 @@ public:
 
 	int life[3];
 	Vector2 lifePos[3] = { 620, 1020, 670, 1020, 720, 1020 };
+
+	bool isInvincible = false;
+	float invincibleTime = 0.0f; // 무적 시간
 };

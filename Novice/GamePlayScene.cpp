@@ -27,6 +27,15 @@ void GamePlayScene::Update(char* keys, char* preKeys) {
 	collision_->bossBulletCollision();
 	collision_->bossRotatingBulletCollision();
 
+	if (boss_->hpSizeX <= 0) {
+		boss_->hpSizeX = 0;
+		sceneNo = CLEAR;
+	}
+
+	if (player_->life_1 == false) {
+		sceneNo = OVER;
+	}
+
 	backGround_[0].y += backGroundSpeed_;
 	backGround_[1].y += backGroundSpeed_;
 

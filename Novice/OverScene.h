@@ -2,12 +2,12 @@
 #include "IScene.h"
 #include "Vector2.h"
 
-class ClearScene : public IScene {
+class OverScene : public IScene {
 public:
 	void Init() override;
 	void Update(char* keys, char* preKeys) override;
 	void Draw() override;
 
 private:
-	int clearScreenTexture_;
+	int overScreenTexture_;
 };

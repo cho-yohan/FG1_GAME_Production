@@ -5,6 +5,7 @@
 #include "StageScene.h"
 #include "GamePlayScene.h"
 #include "ClearScene.h"
+#include "OverScene.h"
 #include <Novice.h>
 #include <memory>
 
@@ -18,7 +19,7 @@ public:
 
 private:
 	// keeps track of the scenes
-	std::unique_ptr<IScene> sceneArr_[4];
+	std::unique_ptr<IScene> sceneArr_[5];
 
 	int currentSceneNo_;
 	int prevSceneNo_;
